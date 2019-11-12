@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>v-if v-show v-for</title>
+	<script src="./vue.js"></script>
+</head>
+<body>
+	<!--1.挂载点，模板，实例之间的关系
+		挂载点之中的内容实例模板
+
+		2.数据、事件和方法
+		//{{}}插值表达式
+		v-text="number" v-html这个不会转义也就是不会带标签只显示内容
+		绑定事件：v-on:click="()=>alert(666)" v-on 的简写@
+		<h1>{{number}}</h1>
+		<h1 v-text="number"></h1>
+
+		<h1 v-html="number"></h1>
+
+		3.属性绑定和双向数据绑定
+		v-bind:title绑定data中的数据，data中要有与之对应的变量,简写是“：”
+		v-model 实现双向绑定，即input框的值改变，content的内容也跟随改变
+
+		4.computed  watch
+		5.v-if 删除标签  v-show 通过隐藏标签
+		v-for循环展示list数据到页面中
+		6.todolist
+		7.todolist 组件拆分
+		组件是什么？如何定义？如何拆分？组件之间通信？
+		8.组件与实例的关系：vue的组件是vue的实例
+		9.todolist的删除
+	-->
+	<div id="root">
+		<div>
+			<input v-model="inputValue" />
+			<button @click="handlesubmit">提交</button>
+		</div>
+		<ul>
+			<todo-item v-for="(item,index) of list " :key="index" :content="item"  :index="index" @delete="handleDelete"></todo-item>
+			
+		</ul>
+	</div>
+	<script>
+		//全局组件
+		Vue.component('todo-item',{
+			props:['content','index'],//定义接收传递的数值
+			template:'<li @click="handleClick">{{content}}{{index}}</li>',
+			methods:{
+				handleClick:function(){
+					//通知父组件,触发事件
+					this.$emit('delete',this.index)
+				}
+			}
+
+		})
+		//局部组件
+		//var TodoItem={
+		//	template:'<li>{{content}}</li>'
+		//}
+		new Vue({
+		el:"#root",
+		//components:{
+		//	'todo-item':TodoItem
+		//}
+		data:{
+			inputValue: '',
+			list:[]
+		},
+		methods:{
+			handlesubmit:function(){
+				this.list.push(this.inputValue);
+				this.inputValue='';
+			
+			},
+			handleDelete:function(index){
+				alert(index);
+				//执行删除1项
+				this.list.splice(index,1);
+
+			}
+		}
+
+		
+		
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>v-if v-show v-for</title>
+	<script src="./vue.js"></script>
+</head>
+<body>
+	<!--1.挂载点，模板，实例之间的关系
+		挂载点之中的内容实例模板
+
+		2.数据、事件和方法
+		//{{}}插值表达式
+		v-text="number" v-html这个不会转义也就是不会带标签只显示内容
+		绑定事件：v-on:click="()=>alert(666)" v-on 的简写@
+		<h1>{{number}}</h1>
+		<h1 v-text="number"></h1>
+
+		<h1 v-html="number"></h1>
+
+		3.属性绑定和双向数据绑定
+		v-bind:title绑定data中的数据，data中要有与之对应的变量,简写是“：”
+		v-model 实现双向绑定，即input框的值改变，content的内容也跟随改变
+
+		4.computed  watch
+		5.v-if 删除标签  v-show 通过隐藏标签
+		v-for循环展示list数据到页面中
+	-->
+	<div id="root">
+		<div>
+			<input v-model="inputValue" />
+			<button @click="handleClick">提交</button>
+		</div>
+		<ul>
+			<li v-for="(item,index) of list " :key="index">{{item}}</li>
+			
+		</ul>
+	</div>
+	<script>
+		new Vue({
+		el:"#root",
+		data: {
+			inputValue: '',
+			list:[]
+		},
+		methods:{
+			handleClick:function(){
+				this.list.push(this.inputValue);
+				this.inputValue='';
+			}
+			
+			
+		}
+
+		
+		
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>属性绑定和双向数据绑定</title>
+	<script src="./vue.js"></script>
+</head>
+<body>
+	<!--1.挂载点，模板，实例之间的关系
+		挂载点之中的内容实例模板
+
+		2.数据、事件和方法
+		//{{}}插值表达式
+		v-text="number" v-html这个不会转义也就是不会带标签只显示内容
+		绑定事件：v-on:click="()=>alert(666)" v-on 的简写@
+		<h1>{{number}}</h1>
+		<h1 v-text="number"></h1>
+
+		<h1 v-html="number"></h1>
+
+		3.属性绑定和双向数据绑定
+		v-bind:title绑定data中的数据，data中要有与之对应的变量,简写是“：”
+		v-model 实现双向绑定，即input框的值改变，content的内容也跟随改变
+	-->
+	<div id="root">
+		<div v-bind:title="msg">hello  </div>
+
+		<input :value="content"/>
+		<input v-model="content"/>
+		<div>{{content}}</div>
+	</div>
+	<script>
+		new Vue({
+		el:"#root",
+		//template:'<h1>hello {{msg}}</h1>',//模板可以写在这里
+		data:{
+			msg:"hello world",
+			//number:123456
+			content:"this is content"
+		},
+		methods:{
+			handleClick:function(){
+				alert(123);
+				this.msg="woshi Vue入门"
+			}
+		}
+		
+		})
+	</script>
+</body>
+</html>
